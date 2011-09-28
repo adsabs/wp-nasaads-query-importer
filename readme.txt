@@ -29,12 +29,15 @@ With "WP NASA/ADS Query Importer" you can:
 * Highlight an author in any single paper
 
 Supported shortcodes:
+
 * wp_nasaads_query_importer_full :only shortcode currently supported; it works together with some mandatory and optional attributes.
 
 Mandatory attributes for shortcode "wp_nasaads_query_importer_full":
+
 * ads_query_url: This is the attribute where the user specifies the url for the query to ADS
 
 Optional attributes for shortcode "wp_nasaads_query_importer_full":
+
 * title: The title the user wants to show above the results. There is no default value for this attribute
 * highlight_author: String that contains the lastname of the author to highlight. There is no default value for this attribute
 * max_num_authors: Max number of authors before printing "and other N coauthors". The default is 1
@@ -52,6 +55,7 @@ Any attribute different from the previous ones will be ignored.
 Any attribute set to a not allowed value will be re-set to the the default.
 
 Settings:
+
 * SAO/NASA ADS Server: Is the default server where to run the queries. 
   It can be overwritten by specifying a complete URL (containing the host) in the ads_query_url parameter, but it is necessary to create links back to the ADS website.
 * Acknowledgement to ADS after list of papers: You can disable this option if you don't want the Acknowledgement string 
