@@ -569,7 +569,7 @@ function wp_nasaads_query_importer_display_admin_page()
 	//Variable that contains the html code when there is an update
 	$code_for_updated_server = '
 		<div class="updated">
-			<p>Server <span style="font-weight:bold;">successfully updated!<span></p>
+			<p>Settings <span style="font-weight:bold;">successfully updated!<span></p>
 		</div>';
 	
 	echo ($updated_server?$code_for_updated_server:"").'
