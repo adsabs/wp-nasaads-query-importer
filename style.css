@@ -1,0 +1,63 @@
+@CHARSET "UTF-8";
+
+.wp-nasaads-query-importer-error {
+	background-color: #FF8A8A;
+}
+
+.wp-nasaads-query-importer-result-list-title {
+	font-size:1.3em;
+	font-weight:bold;
+}
+
+ul.wp-nasaads-query-importer-result-list {
+	margin-top:1em;
+}
+
+ul.wp-nasaads-query-importer-result-list li {
+	margin-top:0.5em;
+}
+
+.wp-nasaads-query-importer-result-list-bibcode {
+	display: block;
+}
+.wp-nasaads-query-importer-result-list-authors {
+	display: block;
+}
+
+.wp-nasaads-query-importer-result-list-article-title {
+	font-weight:bold;
+	display: block;
+}
+
+.wp-nasaads-query-importer-result-list-other-authors {
+	font-style:italic;
+}
+
+.wp-nasaads-query-importer-result-list-journal {
+	font-style:italic;
+	font-size: 0.9em;
+	display: block;
+}
+
+.wp-nasaads-query-importer-result-list-date {
+	font-style:italic;
+	font-size: 0.9em;
+	display: block;
+}
+
+.wp-nasaads-query-importer-result-list-highlithed-author {
+	font-weight:bold;	
+}
+
+a.wp-nasaads-query-importer-result-link-to-ads * {
+	display: inline;
+}
+
+p.wp-nasaads-query-importer-result-other-records-not-printed {
+	
+}
+
+p.wp-nasaads-query-importer-acknowledgement {
+	margin-top:2em;
+	font-size: 0.8em;
+}
