@@ -595,6 +595,7 @@ function wp_nasaads_query_importer_display_admin_page()
 			<option value="http://ads.bao.ac.cn/" '.(($adsserver=="http://ads.bao.ac.cn/")?"selected=\"selected\"":"") .'>http://ads.bao.ac.cn/ - National Astronomical Observatory, Chinese Academy of Science, Beijing, China</option>
 			<option value="http://ads.iucaa.ernet.in/" '.(($adsserver=="http://ads.iucaa.ernet.in/")?"selected=\"selected\"":"") .'>http://ads.iucaa.ernet.in/ - Inter-University Centre for Astronomy and Astrophysics, Pune, India</option>
 			<option value="http://ads.arsip.lipi.go.id/" '.(($adsserver=="http://ads.arsip.lipi.go.id/")?"selected=\"selected\"":"") .'>http://ads.arsip.lipi.go.id/ - Indonesian Institute of Sciences, Jakarta, Indonesia</option>
+			<option value="http://saaoads.chpc.ac.za/" '.(($adsserver=="http://saaoads.chpc.ac.za/")?"selected=\"selected\"":"") .'>http://saaoads.chpc.ac.za/ - South African Astronomical Observatory</option>
 			<option value="http://ads.on.br/" '.(($adsserver=="http://ads.on.br/")?"selected=\"selected\"":"") .'>http://ads.on.br/ - Observat&oacute;rio Nacional, Rio de Janeiro, Brazil</option>
 		</select>
 		<br /><br />

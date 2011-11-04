@@ -7,7 +7,7 @@ Requires at least: 3.2
 Tested up to: 3.2.1
 Stable tag: trunk
 
-Import any ADS query you can perform on an ADS serve in your Wordpress website.
+Import any ADS query you can perform on an ADS server in your Wordpress website.
 
 
 == Description ==
@@ -124,6 +124,9 @@ If an option is not present in the current version of this plugin, please contac
 6. Example of result with customized parameters (order changed)
 
 == Changelog ==
+
+= 0.2 =
+* List of mirrors updated 
 
 = 0.1 =
 * First public release
