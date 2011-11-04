@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP NASA/ADS Query Importer
-Version: 0.1
+Version: 0.2
 Description: Import any ADS query in your Wordpress website.
 Author: Giovanni Di Milia for the ADS
 Author URI: http://adsabs.harvard.edu
