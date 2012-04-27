@@ -125,6 +125,9 @@ If an option is not present in the current version of this plugin, please contac
 
 == Changelog ==
 
+= 0.3 =
+* Updated ADS XML Namespace compatibility
+
 = 0.2 =
 * List of mirrors updated 
 

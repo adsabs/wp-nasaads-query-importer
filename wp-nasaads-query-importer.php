@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP NASA/ADS Query Importer
-Version: 0.2
+Version: 0.3
 Description: Import any ADS query in your Wordpress website.
 Author: Giovanni Di Milia for the ADS
 Author URI: http://adsabs.harvard.edu
@@ -39,7 +39,7 @@ if (version_compare($wp_version, "3.2", "<"))
 
 //Actual plugin
 define(wp_nasaads_query_importer_path, WP_PLUGIN_URL . "/" . str_replace(basename( __FILE__), "", plugin_basename(__FILE__)));
-define("wp_nasaads_query_importer_version", "0.1");
+define("wp_nasaads_query_importer_version", "0.3");
 $plugin_dir = basename(dirname(__FILE__));
 
 define("wp_nasaads_query_importer_admin_options_name", "wp_nasaads_query_importer_admin_options");
@@ -239,7 +239,7 @@ function wp_nasaads_query_importer_data_from_xml($dom_doc)
 	
 	//I create an XPATH object and register a default namespace
 	$xpath = new DOMXPath($doc);
-	$xpath->registerNamespace('pre', "http://ads.harvard.edu/schema/abs/1.0/abstracts");
+	$xpath->registerNamespace('pre', "http://ads.harvard.edu/schema/abs/1.1/abstracts");
 	//I extract the basic info (selected and retrieved)
 	$retrieved_node = $xpath->evaluate('/pre:records/@retrieved');
 	$selected_node = $xpath->evaluate('/pre:records/@selected');
