@@ -56,7 +56,7 @@ function wp_nasaads_query_importer_build_query($atts, $fetch) {
             # in case of "easy logic", i.e., there are no quotation marks,
             # OR, ANDs, or parentheses, then we assume a single author
             # and add quotation marks around her/his name
-            if (! preg_match('/["()]+|( AND )+|( OR )+/', $atts['author'])) {
+            if (! preg_match('/["()]+|( AND )+|( OR )+/i', $atts['author'])) {
                 $atts['author'] = '"' . $atts['author'] . '"';
             }
             $fields[] = 'author:' . $atts['author'];
@@ -72,7 +72,7 @@ function wp_nasaads_query_importer_build_query($atts, $fetch) {
         }
         if (! is_null($atts['title'])) {
             # "easy logic", see above
-            if (! preg_match('/["()]+|( AND )+|( OR )+/', $atts['title'])) {
+            if (! preg_match('/["()]+|( AND )+|( OR )+/i', $atts['title'])) {
                 $atts['title'] = '"' . $atts['title'] . '"';
             }
             $fields[] = 'title:' . $atts['title'];
