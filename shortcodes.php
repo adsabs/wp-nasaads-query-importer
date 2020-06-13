@@ -60,12 +60,12 @@ function wp_nasaads_query_importer_format_month($html, $value, $atts) {
 add_filter(
     'wp_nasaads_query_importer-format_month', 'wp_nasaads_query_importer_format_month', 1, 3);
 
-function wp_nasaads_query_importer_format_shortjournal($html, $value, $atts) {
+function wp_nasaads_query_importer_format_bibstem($html, $value, $atts) {
     return $value[0];
 }
 add_filter(
-    'wp_nasaads_query_importer-format_shortjournal',
-    'wp_nasaads_query_importer_format_shortjournal', 1, 3);
+    'wp_nasaads_query_importer-format_bibstem',
+    'wp_nasaads_query_importer_format_bibstem', 1, 3);
 
 function wp_nasaads_query_importer_format_adsurl($html, $value, $atts) {
     return 'https://ui.adsabs.harvard.edu/abs/' . $value . '/abstract';
@@ -100,12 +100,12 @@ add_filter(
 function wp_nasaads_query_importer_record_mapping() {
     return array(
         'author' => 'author',
-        'affil' => 'aff',
+        'aff' => 'aff',
         'title' => 'title',
         'year' => 'year',
         'month' => 'date',
-        'shortjournal' => 'bibstem',
-        'journal' => 'pub',
+        'bibstem' => 'bibstem',
+        'pub' => 'pub',
         'page' => 'page',
         'volume' => 'volume',
         'adsurl' => 'bibcode'
@@ -150,8 +150,8 @@ function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = 
     # note: the filter called inside of wordpress' shortcode_atts
     # allows to modify the default values by third party plugins
     $atts = shortcode_atts(array(
-        'query' => null, 'author' => null, 'affil' => null,
-        'year' => null, 'journal' => null, 'title' => null,
+        'query' => null, 'author' => null, 'aff' => null,
+        'year' => null, 'bibstem' => null, 'title' => null,
         'property' => null, 'library' => null,
         'max_rec' => 2000, 'sort' => 'year+desc', 'max_authors' => 3,
         'notify_empty_list' => get_option('wp_nasaads_query_importer-empty_list')
@@ -181,9 +181,9 @@ function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = 
             }
             $atts['year'] = array_map('intval', explode('-', $atts['year']));
         }
-        if (! is_null($atts['journal'])
-            && ! preg_match('/^[a-zA-Z\&]*$/', $atts['journal'])) {
-            return wp_nasaads_query_importer_shortcode_error('only simple "journal" filtering allowed for library queries');
+        if (! is_null($atts['bibstem'])
+            && ! preg_match('/^[a-zA-Z\&]*$/', $atts['bibstem'])) {
+            return wp_nasaads_query_importer_shortcode_error('only simple "bibstem" filtering allowed for library queries');
         }
     }
 
@@ -216,8 +216,8 @@ function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = 
         if (! is_null($atts['year'])) {
             $fetch[] = 'year'; $mapon[] = 'year';
         }
-        if (! is_null($atts['journal'])) {
-            $fetch[] = 'bibstem'; $mapon[] = 'shortjournal';
+        if (! is_null($atts['bibstem'])) {
+            $fetch[] = 'bibstem'; $mapon[] = 'bibstem';
         }
     }
 
@@ -252,9 +252,9 @@ function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = 
                     || (sizeof($atts['year']) == 1
                         && $record['year'] != $atts['year'][0])) { continue; }
             }
-            # journal
-            if (! is_null($atts['journal'])
-                && $record['bibstem'][0] !== $atts['journal']) { continue; }
+            # bibstem
+            if (! is_null($atts['bibstem'])
+                && $record['bibstem'][0] !== $atts['bibstem']) { continue; }
             # max_rec
             if ($n > $atts['max_rec']) { continue; }
         }

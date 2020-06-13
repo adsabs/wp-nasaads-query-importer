@@ -20,7 +20,7 @@
 function wp_nasaads_query_importer_install() {
     if (get_option('wp_nasaads_query_importer-token') == false) {
         add_option('wp_nasaads_query_importer-token', '');
-        add_option('wp_nasaads_query_importer-template', "<li>\n<a href=\"%adsurl\">%title</a><br />\n%author<br />\n<small>%year %month, %shortjournal[, %volume][, %page]</small>\n</li>");
+        add_option('wp_nasaads_query_importer-template', "<li>\n<a href=\"%adsurl\">%title</a><br />\n%author<br />\n<small>%year %month, %bibstem[, %volume][, %page]</small>\n</li>");
         add_option('wp_nasaads_query_importer-template_start', '<ul>');
         add_option('wp_nasaads_query_importer-template_stop', '</ul>');
         add_option('wp_nasaads_query_importer-numrecords', '2');

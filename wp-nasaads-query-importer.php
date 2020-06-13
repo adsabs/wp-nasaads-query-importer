@@ -40,6 +40,6 @@ if (get_option('wp_nasaads_query_importer-valid_token') != 1) {
 
 // require files containing the actual plugin implementation
 foreach (array('settings', 'query', 'shortcodes') as $basename) {
-  require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . $basename . '.php';
+    require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . $basename . '.php';
 }
 ?>

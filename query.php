@@ -61,14 +61,14 @@ function wp_nasaads_query_importer_build_query($atts, $fetch) {
             }
             $fields[] = 'author:' . $atts['author'];
         }
-        if (! is_null($atts['affil'])) {
-            $fields[] = 'aff:' . $atts['affil'];
+        if (! is_null($atts['aff'])) {
+            $fields[] = 'aff:' . $atts['aff'];
         }
         if (! is_null($atts['year'])) {
             $fields[] = 'year:' . $atts['year'];
         }
-        if (! is_null($atts['journal'])) {
-            $fields[] = 'bibstem:' . str_replace('&', '%26', $atts['journal']);
+        if (! is_null($atts['bibstem'])) {
+            $fields[] = 'bibstem:' . str_replace('&', '%26', $atts['bibstem']);
         }
         if (! is_null($atts['title'])) {
             # "easy logic", see above
