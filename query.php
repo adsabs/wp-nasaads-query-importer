@@ -1,6 +1,6 @@
 <?php
 /*
- Copyright 2020 Matthias Bissinger (email: matthias.bissinger@fau.de)
+ Copyright 2020 The SAO/NASA Astrophysics Data System
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
