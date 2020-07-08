@@ -41,8 +41,8 @@ In case of enclosed content the *format* is used to format the list of the recor
 Please note that for all of the following query attributes the [NASA/ADS search syntax](http://adsabs.github.io/help/search/search-syntax)  is applied, i.e., the shortcode's attribute values are submitted unaltered to the API (with the exception of *author* and *property* as described below). This enables more complex searches, for instance when combined with logical operators like AND, OR, or NOT (read the search syntax for details).
 
 - **author**: search for certain author(s). In case a single author is given the name of the author, i.e., the attribute's value will be submitted with surrounding double quotes (e.g., `Hawking, S.` will be submitted as `"Hawking, S."`).  Technically, a value is considered to be a single author if the string contains no AND, OR, double quotes or parentheses. If you need to include double quotes in the author field, please use single quotes around the attribute's value (see the examples below).
-- **affil**: search for author's affiliations which contain the given string.
-- **journal**: search for articles published in the given journal(s). The acronym of the journal has to be given here (named "bibstem" in the ADS search syntax).
+- **aff**: search for author's affiliations which contain the given string.
+- **bibstem**: search for articles published in specific journal(s) given by the acronym(s) of the journal(s).
 - **year**: search for articles published in a certain year given in the format `YYYY`. Articles within a certain period can be searched by `YYYY-YYYY`.
 - **title**: search for articles whose title contains the given string. The title will be submitted with surrounding double quotes under the same conditions as described for the *author* attribute.
 - **property**: filter the records on specific properties like `refereed`. Read the *Properties* section of the search syntax for a list of all available properties.
@@ -89,7 +89,7 @@ Same as before but where Hawking was first author:
 `[wp_nasaads_query_importer author="^Hawking, S." property="refereed"]`
 
 List all articles by Ejnar Hertzsprung published in the *Astronomische Nachrichten*:
-`[wp_nasaads_query_importer author="Hertzsprung, E." journal="AN"]`
+`[wp_nasaads_query_importer author="Hertzsprung, E." bibstem="AN"]`
 
 List all articles by Ejnar Hertzsprung and Henry Norris Russell. Note that the author string is surrounded by single quotes while the author names are surrounded by double quotes in order to preserve their last and first names. Also the search by both authors is logically combined by AND due to the space between their names:
 `[wp_nasaads_query_importer author='"Hertzsprung, E." "Russell, H.N."']`
