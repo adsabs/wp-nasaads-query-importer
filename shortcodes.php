@@ -168,25 +168,6 @@ function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = 
         $atts, 'max_rec', 0, 2000))) { return $err; }
     if (is_string($err = wp_nasaads_query_importer_shortcode_int_check(
         $atts, 'max_authors', 0, 1000))) { return $err; }
-    # sanity check of library search options (no supported yet by the API)
-    if (! is_null($atts['library'])) {
-        foreach (array('author', 'title', 'property') as $opt) {
-            if (! is_null($atts[$opt])) {
-            return wp_nasaads_query_importer_shortcode_error(
-                'search option "' . $opt . '" is not supported for library queries');
-            }
-        }
-        if (! is_null($atts['year'])) {
-            if (! preg_match('/^[0-9]{4}(-[0-9]{4})?$/', $atts['year'])) {
-                return wp_nasaads_query_importer_shortcode_error('only simple "year" filtering allowed for library queries');
-            }
-            $atts['year'] = array_map('intval', explode('-', $atts['year']));
-        }
-        if (! is_null($atts['bibstem'])
-            && ! preg_match('/^[a-zA-Z\&]*$/', $atts['bibstem'])) {
-            return wp_nasaads_query_importer_shortcode_error('only simple "bibstem" filtering allowed for library queries');
-        }
-    }
 
     # default content from template
     $shorttemp = true;
@@ -210,17 +191,6 @@ function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = 
             $mapon[] = $field;
         }
     }
-    # in case of a library we need to merge the fetched field names
-    # with the optional query parameters as searching within a library
-    # is not yet supported
-    if (! is_null($atts['library'])) {
-        if (! is_null($atts['year'])) {
-            $fetch[] = 'year'; $mapon[] = 'year';
-        }
-        if (! is_null($atts['bibstem'])) {
-            $fetch[] = 'bibstem'; $mapon[] = 'bibstem';
-        }
-    }
 
     # query URL
     # (flatten $fetch as it may contain arrays and remove duplicate entries)
@@ -239,28 +209,8 @@ function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = 
     }
 
     # format HTML
-    $html = array(); $n = 0;
+    $html = array();
     foreach ($response['docs'] as $record) {
-        # in case of a library query let's do some basic filtering
-        # here as it is not supported by the API yet
-        if (! is_null($atts['library'])) {
-            # year
-            if (! is_null($atts['year'])) {
-                $record['year'] = (int) $record['year'];
-                if ((sizeof($atts['year']) == 2
-                     && ($record['year'] < $atts['year'][0]
-                     || $record['year'] > $atts['year'][1]))
-                    || (sizeof($atts['year']) == 1
-                        && $record['year'] != $atts['year'][0])) { continue; }
-            }
-            # bibstem
-            if (! is_null($atts['bibstem'])
-                && $record['bibstem'][0] !== $atts['bibstem']) { continue; }
-            # max_rec
-            if ($n > $atts['max_rec']) { continue; }
-        }
-        $n++;
-        
         # Insert fetched record into an associative array. The keys
         # are the plugin's placeholder names and the values are the
         # API value or values if an multiple fields are fetched for
@@ -284,7 +234,7 @@ function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = 
         }
         $html[] = wp_nasaads_query_importer_format_record($data, $template, $atts);
     }
-    if ($n > 0) {
+    if (sizeof($html) > 0) {
         $html = ($shorttemp ? '<p>'
                  : get_option('wp_nasaads_query_importer-template_start'))
               . implode($html, "</p>\n<p>")

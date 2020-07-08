@@ -49,42 +49,41 @@ function wp_nasaads_query_importer_build_query($atts, $fetch) {
     }
 
     # build search query from given fields
-    # (supported only if no library is requested)
     $fields = array();
-    if (is_null($atts['library'])) {
-        if (! is_null($atts['author'])) {
-            # in case of "easy logic", i.e., there are no quotation marks,
-            # OR, ANDs, or parentheses, then we assume a single author
-            # and add quotation marks around her/his name
-            if (! preg_match('/["()]+|( AND )+|( OR )+/i', $atts['author'])) {
-                $atts['author'] = '"' . $atts['author'] . '"';
-            }
-            $fields[] = 'author:' . $atts['author'];
+    if (! is_null($atts['author'])) {
+        # in case of "easy logic", i.e., there are no quotation marks,
+        # OR, ANDs, or parentheses, then we assume a single author
+        # and add quotation marks around her/his name
+        if (! preg_match('/["()]+|( AND )+|( OR )+/i', $atts['author'])) {
+            $atts['author'] = '"' . $atts['author'] . '"';
         }
-        if (! is_null($atts['aff'])) {
-            $fields[] = 'aff:' . $atts['aff'];
+        $fields[] = 'author:' . $atts['author'];
+    }
+    if (! is_null($atts['aff'])) {
+        $fields[] = 'aff:' . $atts['aff'];
+    }
+    if (! is_null($atts['year'])) {
+        $fields[] = 'year:' . $atts['year'];
+    }
+    if (! is_null($atts['bibstem'])) {
+        $fields[] = 'bibstem:' . str_replace('&', '%26', $atts['bibstem']);
+    }
+    if (! is_null($atts['title'])) {
+        # "easy logic", see above
+        if (! preg_match('/["()]+|( AND )+|( OR )+/i', $atts['title'])) {
+            $atts['title'] = '"' . $atts['title'] . '"';
         }
-        if (! is_null($atts['year'])) {
-            $fields[] = 'year:' . $atts['year'];
-        }
-        if (! is_null($atts['bibstem'])) {
-            $fields[] = 'bibstem:' . str_replace('&', '%26', $atts['bibstem']);
-        }
-        if (! is_null($atts['title'])) {
-            # "easy logic", see above
-            if (! preg_match('/["()]+|( AND )+|( OR )+/i', $atts['title'])) {
-                $atts['title'] = '"' . $atts['title'] . '"';
-            }
-            $fields[] = 'title:' . $atts['title'];
-        }
+        $fields[] = 'title:' . $atts['title'];
+    }
+    if (! is_null($atts['library'])) {
+        $fields[] = sprintf('docs(library/%s)', $atts['library']);
     }
     $query = implode(' +', $fields);
     # sanity check for any request given (search query or library)
     if ($query === '' && is_null($atts['library'])) { return false; }
 
     # finalize and encode
-    $what = is_null($atts['library']) ? 'search/query?'
-          : sprintf('biblib/libraries/%s?', $atts['library']);
+    $what = 'search/query?';
     if ($query !== '') {
         $what .= sprintf('q=%s&', $query);
     }
@@ -92,9 +91,7 @@ function wp_nasaads_query_importer_build_query($atts, $fetch) {
         $what .= sprintf('fq=property:(%s)&', $atts['property']);
     }
     $what .= sprintf('fl=%s&rows=%d&sort=%s',
-        implode(',', $fetch),
-        is_null($atts['library']) ? $atts['max_rec'] : 2000, # override!!
-        $atts['sort']);
+        implode(',', $fetch), $atts['max_rec'], $atts['sort']);
     $what = str_replace(['"', ' '], ['%22', '+'], $what);
 
     return $what;
@@ -117,6 +114,8 @@ function wp_nasaads_query_importer_query($what, $token = null) {
     if (! is_array($response)) {
         return wp_nasaads_query_importer_throw('API response is not of expected type');
     }
+    print_r($response);
+    die();
     if (! array_key_exists('body', $response)) {
         return wp_nasaads_query_importer_throw(
             'API response does not contain expected keys');
