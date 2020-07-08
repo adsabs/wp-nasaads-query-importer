@@ -153,7 +153,7 @@ function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = 
         'query' => null, 'author' => null, 'aff' => null,
         'year' => null, 'bibstem' => null, 'title' => null,
         'property' => null, 'library' => null,
-        'max_rec' => 2000, 'sort' => 'date+desc,bibcode+desc',
+        'max_rec' => 25, 'sort' => 'date+desc,bibcode+desc',
         'max_authors' => 3,
         'notify_empty_list' => get_option('wp_nasaads_query_importer-empty_list')
                                ? 'true' : 'false',
