@@ -78,7 +78,7 @@ function wp_nasaads_query_importer_build_query($atts, $fetch) {
     if (! is_null($atts['library'])) {
         $fields[] = sprintf('docs(library/%s)', $atts['library']);
     }
-    $query = implode(' +', $fields);
+    $query = implode(' %2B', $fields);
     # sanity check for any request given (search query or library)
     if ($query === '' && is_null($atts['library'])) { return false; }
 
@@ -92,7 +92,8 @@ function wp_nasaads_query_importer_build_query($atts, $fetch) {
     }
     $what .= sprintf('fl=%s&rows=%d&sort=%s',
         implode(',', $fetch), $atts['max_rec'], $atts['sort']);
-    $what = str_replace(['"', ' '], ['%22', '+'], $what);
+    $what = str_replace(['"', '/', '[', ']', ' '],
+    ['%22', '%2F', '%5B', '%5D', '+'], $what);
 
     return $what;
 }
