@@ -49,7 +49,7 @@ Please note that for all of the following query attributes the [NASA/ADS search 
 
 Showing the records within an [ADS user library](http://adsabs.github.io/help/libraries/creating-libraries) is supported by the
 
-- **library** attribute: the ID of the user-library. Please note that the NASA/ADS API does not natively support to filter the records of a library. However, this plugin implements some filtering of the records in the library. Currently the query attributes *journal* and *year* are supported to be combined with *library*.
+- **library** attribute: the ID of the user-library.
 
 For more complex ADS searches, which are not supported by using the attributes of the shortcode, you may specify the
 - **query** attribute: the GET method's URL to the API without the base path, i.e., https://api.adsabs.harvard.edu/v1/  is added automatically to the URL.
