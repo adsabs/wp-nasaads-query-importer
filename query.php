@@ -63,6 +63,9 @@ function wp_nasaads_query_importer_build_query($atts, $fetch) {
         $fields[] = 'aff:' . $atts['aff'];
     }
     if (! is_null($atts['year'])) {
+        if (preg_match('/( TO )/', $atts['year'])) {
+            $atts['year'] = '[' . $atts['year'] . ']';
+        }
         $fields[] = 'year:' . $atts['year'];
     }
     if (! is_null($atts['bibstem'])) {
@@ -115,8 +118,6 @@ function wp_nasaads_query_importer_query($what, $token = null) {
     if (! is_array($response)) {
         return wp_nasaads_query_importer_throw('API response is not of expected type');
     }
-    print_r($response);
-    die();
     if (! array_key_exists('body', $response)) {
         return wp_nasaads_query_importer_throw(
             'API response does not contain expected keys');

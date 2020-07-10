@@ -43,7 +43,7 @@ Please note that for all of the following query attributes the [NASA/ADS search 
 - **author**: search for certain author(s). In case a single author is given the name of the author, i.e., the attribute's value will be submitted with surrounding double quotes (e.g., `Hawking, S.` will be submitted as `"Hawking, S."`).  Technically, a value is considered to be a single author if the string contains no AND, OR, double quotes or parentheses. If you need to include double quotes in the author field, please use single quotes around the attribute's value (see the examples below).
 - **aff**: search for author's affiliations which contain the given string.
 - **bibstem**: search for articles published in specific journal(s) given by the acronym(s) of the journal(s).
-- **year**: search for articles published in a certain year given in the format `YYYY`. Articles within a certain period can be searched by `YYYY-YYYY`.
+- **year**: search for articles published in a certain year given in the format `YYYY`. Articles within a certain period can be searched by `YYYY-YYYY` or `YYYY TO YYYY`.
 - **title**: search for articles whose title contains the given string. The title will be submitted with surrounding double quotes under the same conditions as described for the *author* attribute.
 - **property**: filter the records on specific properties like `refereed`. Read the *Properties* section of the search syntax for a list of all available properties.
 
