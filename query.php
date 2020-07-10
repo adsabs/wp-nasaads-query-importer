@@ -127,6 +127,14 @@ function wp_nasaads_query_importer_query($what, $token = null) {
         if (gettype($response['error']) === 'object') {
             return wp_nasaads_query_importer_throw($response['error']['msg']);
         }
+        elseif (gettype($response['error']) === 'array') {
+            if (array_key_exists('msg', $response['error'])) {
+                return wp_nasaads_query_importer_throw(
+                    $response['error']['msg']);
+            }
+            return wp_nasaads_query_importer_throw(
+                print_r($response['error'], TRUE));
+        }
         return wp_nasaads_query_importer_throw($response['error'], 1);
     }
 
