@@ -94,13 +94,13 @@ List all articles by Ejnar Hertzsprung published in the *Astronomische Nachricht
 List all articles by Ejnar Hertzsprung and Henry Norris Russell. Note that the author string is surrounded by single quotes while the author names are surrounded by double quotes in order to preserve their last and first names. Also the search by both authors is logically combined by AND due to the space between their names:
 `[wp_nasaads_query_importer author='"Hertzsprung, E." "Russell, H.N."']`
 
-Load a user ADS library and filter the list of papers on the year:
-`[wp_nasaads_query_importer library="CWtn2uQeQ0abyJml1twUEQ" year="2012"]`
+Load a user ADS library and filter the list of papers on a year range and exclude a certain journal:
+`[wp_nasaads_query_importer library="GdEguHJfSGCrYKKqJM-5XA" year="1911-1914" bibstem="(-SciAm)" max_rec=40]`
 
 Same as before but only show the title by customizing the record template:
 ```
 <ul>
-[wp_nasaads_query_importer library="CWtn2uQeQ0abyJml1twUEQ" year="2012"]
+[wp_nasaads_query_importer library="GdEguHJfSGCrYKKqJM-5XA" year="1911-1914" bibstem="(-SciAm)" max_rec=40]
 <li><a href="%adsurl">%title</a></li>
 [/wp_nasaads_query_importer]
 </ul>
