@@ -126,7 +126,7 @@ function wp_nasaads_query_importer_options_display_numrecords_field() {
     <p style="max-width: 460px">Select in which case the total number of found records by the query and the number of actually listed records is added to the end of the record list. Can be overridden by the <i>show_num_rec</i> shortcode attribute.</p>
     <input name="wp_nasaads_query_importer-numrecords" id="wp_nasaads_query_importer-numrecords_field" type="radio" value="0"<?php if (get_option('wp_nasaads_query_importer-numrecords') == 0) { echo " checked"; } ?> /> Never<br />
     <input name="wp_nasaads_query_importer-numrecords" id="wp_nasaads_query_importer-numrecords_field" type="radio" value="1"<?php if (get_option('wp_nasaads_query_importer-numrecords') == 1) { echo " checked"; } ?> /> Always<br />
-    <input name="wp_nasaads_query_importer-numrecords" id="wp_nasaads_query_importer-numrecords_field" type="radio" value="2"<?php if (get_option('wp_nasaads_query_importer-numrecords') == 2) { echo " checked"; } ?> /> Only if more records are found than listed
+    <input name="wp_nasaads_query_importer-numrecords" id="wp_nasaads_query_importer-numrecords_field" type="radio" value="2"<?php if (get_option('wp_nasaads_query_importer-numrecords') == 2) { echo " checked"; } ?> /> Depends, i.e., only if more records are found than listed
     <?php
 }
 

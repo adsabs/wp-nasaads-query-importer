@@ -58,8 +58,8 @@ Finally,the following optional attributes can be used to control the output:
 - **sort**: sort the list of records. The value has to be in the format `field+direction` where `field` is the record field name to sort on and `direction` is either `desc` or `asc`. The default is `date desc,bibcode desc`.
 - **max_rec**: the maximum number of records to show. The default is set to `25`.
 - **max_authors**: the maximum number of authors to print, which is set to `3` by default. The remaining number of authors are appended to the printed author list.
-- **notify_empty_list**: overrides the global plugin option "Notify empty list". Possible values are `true` or `false`.
-- **show_num_rec**: overrides the global plugin option "Show number of records". Allowed values are `always`, `never`, or `depends` (read the description in the plugin's settings page for details).
+- **notify_empty_list**: overrides the global plugin option "Notify empty list". Possible values are `true` or `false`. The default is `true`.
+- **show_num_rec**: overrides the global plugin option "Show number of records". Allowed values are `never`, `always`, or `depends` (read the description in the plugin's settings page for details). The default is set to `depends`.
 
 = Format =
 How the list of records is formatted and inserted into your post can be defined in the plugin option "Content template" for all shortcodes. In case a shortcode is inserted into a post with enclosed content, i.e., `[wp_nasaads_query_importer] ...  [/wp_nasaads_query_importer]` then the content within the shortcode tags is used as the template and, thus,  overrides the plugin's global option.
