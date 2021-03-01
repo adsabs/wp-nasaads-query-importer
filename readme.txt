@@ -1,4 +1,4 @@
-=== WP Nasa/ADS Query Importer
+=== WP Nasa/ADS Query Importer ===
 Contributors: mbissinger, giodimilia
 Plugin URI: http://wordpress.org/extend/plugins/wp-nasaads-query-importer/
 Author URI: http://adsabs.harvard.edu
@@ -138,3 +138,18 @@ In case you have discovered a bug please create an issue at [GitHub](https://git
 
 = Can I contribute to the plugin? =
 Sure, thanks! Simply fork the GIT repository from [GitHub](https://github.com/adsabs/wp-nasaads-query-importer) and create a pull request of your feature branch once your code works.
+
+== Changelog ==
+
+= 1.0 =
+* Entire revision of the plugin, breaks backward compatibility
+* Migration to the more modern NASA ADS API
+
+= 0.3 =
+* Updated ADS XML Namespace compatibility
+
+= 0.2 =
+* List of mirrors updated 
+
+= 0.1 =
+* First public release
