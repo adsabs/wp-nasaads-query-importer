@@ -38,9 +38,11 @@ function wp_nasaads_query_importer_get_error() {
 
 // build the API query basend on the given attribute array
 function wp_nasaads_query_importer_build_query($atts, $fetch) {
-    $what = $atts['url'];
-    if (! is_null($what)) {
-        return $what;
+    if(array_key_exists('url', $atts )) {
+    	$what = $atts['url'];
+    	if (! is_null($what)) {
+       	 return $what;
+    	}
     }
 
     # search query given explicitly
@@ -122,7 +124,12 @@ function wp_nasaads_query_importer_query($what, $token = null) {
         return wp_nasaads_query_importer_throw(
             'API response does not contain expected keys');
     }
+
     $response = json_decode($response['body'], true);
+    if(is_null($response)){
+        return wp_nasaads_query_importer_throw(
+            'Something went wrong. Response is null');
+    }
 
     // check on any error returned by the API
     if (array_key_exists('error', $response)) {

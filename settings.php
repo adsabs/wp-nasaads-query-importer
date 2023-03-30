@@ -57,6 +57,14 @@ function wp_nasaads_query_importer_options_init() {
 add_action('admin_init', 'wp_nasaads_query_importer_options_init');
 
 
+function wp_nasaads_query_importer_options_display_template_start_field(){
+	echo "<ul>";
+}
+
+function wp_nasaads_query_importer_options_display_template_stop_field(){
+	echo "</ul>";
+}
+
 // display the token option
 function wp_nasaads_query_importer_options_display_token_field() {
     ?>
@@ -84,7 +92,7 @@ function wp_nasaads_query_importer_validate_token($token) {
     $access = wp_nasaads_query_importer_query('search/query', $token);
     if ($access == false) {
         $error = wp_nasaads_query_importer_get_error();
-        if (strpos($error, 'The query is empty') === false) {
+        if (strpos($error['msg'], 'The query is empty') === false) {
             $msg = 'The following error occurred: ' . $error['msg'];
             if ($error['type'] == 1 && $error['msg'] === 'Unauthorized') {
                 $msg = 'Token could not be verified on NASA/ADS side!';

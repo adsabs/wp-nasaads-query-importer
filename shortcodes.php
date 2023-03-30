@@ -30,6 +30,7 @@ function wp_nasaads_query_importer_shortcode_error($msg) {
 function wp_nasaads_query_importer_format_record($record, $template, $atts) {
     $html = "$template";
     foreach ($record as $field => $value) {
+
         $value = trim(apply_filters(
             'wp_nasaads_query_importer-format_' . $field, $value, $value, $atts));
         $html = preg_replace(
@@ -131,7 +132,7 @@ function wp_nasaads_query_importer_shortcode_int_check(&$atts, $name, $mn, $mx, 
         return wp_nasaads_query_importer_shortcode_error(
             'invalid value "' . $atts[$name] . '" for ' . $name);
     }
-    if (! is_int($value)) { $atts[$name] = (int) $atts[$name]; }
+    if (isset($value) and ! is_int($value)) { $atts[$name] = (int) $atts[$name]; }
     if ($atts[$name] < $mn || $atts[$name] > $mx) {
         return wp_nasaads_query_importer_shortcode_error(
             $mn . ' <= ' . $name . ' <= ' . $mx . ' required');
@@ -237,7 +238,7 @@ function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = 
     if (sizeof($html) > 0) {
         $html = ($shorttemp ? '<p>'
                  : get_option('wp_nasaads_query_importer-template_start'))
-              . implode($html, "</p>\n<p>")
+              . implode("</p>\n<p>", $html)
               . ($shorttemp ? '</p>'
                  : get_option('wp_nasaads_query_importer-template_stop'));
     } else {
