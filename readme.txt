@@ -141,6 +141,9 @@ Sure, thanks! Simply fork the GIT repository from [GitHub](https://github.com/ad
 
 == Changelog ==
 
+= 1.0.1 =
+* Bug fix: non-existent referred variable
+
 = 1.0 =
 * Entire revision of the plugin, breaks backward compatibility
 * Migration to the more modern NASA ADS API

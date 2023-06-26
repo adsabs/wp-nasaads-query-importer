@@ -131,7 +131,7 @@ function wp_nasaads_query_importer_shortcode_int_check(&$atts, $name, $mn, $mx, 
         return wp_nasaads_query_importer_shortcode_error(
             'invalid value "' . $atts[$name] . '" for ' . $name);
     }
-    if (! is_int($value)) { $atts[$name] = (int) $atts[$name]; }
+    if (! is_int($atts[$name])) { $atts[$name] = (int) $atts[$name]; }
     if ($atts[$name] < $mn || $atts[$name] > $mx) {
         return wp_nasaads_query_importer_shortcode_error(
             $mn . ' <= ' . $name . ' <= ' . $mx . ' required');
