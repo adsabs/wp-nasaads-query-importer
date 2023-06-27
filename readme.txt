@@ -141,6 +141,9 @@ Sure, thanks! Simply fork the GIT repository from [GitHub](https://github.com/ad
 
 == Changelog ==
 
+= 1.0.3 =
+* Maintenance release (sync with svn)
+
 = 1.0.2 =
 * Fixes incompatibilities with PHP8 and Wordpress 6
 
