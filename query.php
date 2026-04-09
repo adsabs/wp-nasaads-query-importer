@@ -107,7 +107,7 @@ function wp_nasaads_query_importer_build_query($atts, $fetch) {
 // query the API
 function wp_nasaads_query_importer_query($what, $token = null) {
     if (is_null($token)) {
-        $token = get_option('wp_nasaads_query_importer-token');
+        $token = esc_html(get_option('wp_nasaads_query_importer-token'));
     }
 
     // query API
