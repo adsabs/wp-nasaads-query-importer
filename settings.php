@@ -122,7 +122,7 @@ function wp_nasaads_query_importer_options_display_template_field() {
     <textarea id="wp_nasaads_query_importer-template_start_field" name="wp_nasaads_query_importer-template_start" style="width: 100%" rows="1"><?php echo esc_attr(get_option('wp_nasaads_query_importer-template_start')); ?></textarea></p>
     <p style="max-width: 460px">Optional HTML template after the list.<br />
     <textarea id="wp_nasaads_query_importer-template_stop_field" name="wp_nasaads_query_importer-template_stop" style="width: 100%" rows="1"><?php echo esc_attr(get_option('wp_nasaads_query_importer-template_stop')); ?></textarea></p>
-    <p style="max-width: 460px">The following placeholders are defined and will be replaced by the corresponding field record:<br /><?php echo implode(', ', array_map(function($s) { return '%'.$s; }, array_keys(wp_nasaads_query_importer_record_mapping()))); ?></p>
+    <p style="max-width: 460px">The following placeholders are defined and will be replaced by the corresponding field record:<br /><?php echo implode(', ', array_map(function($s) { return esc_attr('%'.$s); }, array_keys(wp_nasaads_query_importer_record_mapping()))); ?></p>
     <?php
 }
 
