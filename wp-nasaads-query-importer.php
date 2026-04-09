@@ -27,6 +27,8 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 function wp_nasaads_query_importer_not_validated() {
     ?>
     <div class="notice notice-error is-dismissible">

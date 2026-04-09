@@ -15,7 +15,7 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 // define the API url
 function wp_nasaads_query_importer_url() {

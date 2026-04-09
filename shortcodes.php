@@ -15,7 +15,7 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 // return HTML code to display an error message inside a box
 function wp_nasaads_query_importer_shortcode_error($msg) {
