@@ -142,7 +142,7 @@ function wp_nasaads_query_importer_query($what, $token = null) {
                     $response['error']['msg']);
             }
             return wp_nasaads_query_importer_throw(
-                print_r($response['error'], TRUE));
+                $response['error'], TRUE);
         }
         return wp_nasaads_query_importer_throw($response['error'], 1);
     }

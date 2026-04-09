@@ -36,12 +36,12 @@ function wp_nasaads_query_importer_options_init() {
     register_setting(
         'nasa_ads_query', 'wp_nasaads_query_importer-token',
         'wp_nasaads_query_importer_validate_token');
-    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-template');
-    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-template_start');
-    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-template_stop');
-    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-numrecords');
-    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-empty_list');
-    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-acknowledge');
+    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-template', 'esc_attr');
+    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-template_start', 'esc_attr');
+    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-template_stop', 'esc_attr');
+    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-numrecords', 'absint');
+    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-empty_list','rest_sanitize_boolean');
+    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-acknowledge', 'sanitize_text_field');
 
     foreach (array('token', 'numrecords', 'empty_list', 'template',
                    'template_start', 'template_stop', 'acknowledge')
