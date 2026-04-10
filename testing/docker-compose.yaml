@@ -1,0 +1,39 @@
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+      WORDPRESS_TABLE_PREFIX: wpapp_
+      WORDPRESS_BLOG_NAME: ADS Import Plugin Test Site
+      WORDPRESS_ADMIN_NAME: AdminFirstName
+      WORDPRESS_ADMIN_LASTNAME: AdminLastName
+      WORDPRESS_ADMIN_USERNAME: admin
+      WORDPRESS_ADMIN_PASSWORD: your-admin-password
+      WORDPRESS_ADMIN_EMAIL: admin@yourdomain.com
+      #WORDPRESS_DEBUG: True
+    volumes:
+      - ./var/www/html:/var/www/html
+      - ../wp-nasaads-query-importer:/var/www/html/wp-content/plugins/wp-nasaads-query-importer:ro
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - ./var/lib/mysql:/var/lib/mysql
+
+volumes:
+  wordpress:
+  db:
+

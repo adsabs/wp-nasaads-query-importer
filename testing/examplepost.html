@@ -1,0 +1,23 @@
+<!-- wp:paragraph -->
+<p>Here are all the example uses from the Readme.txt</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Show a list of refereed papers with Stephen Hawking among the list of authors:<br><code>[wp_nasaads_query_importer author="Hawking, S." property="refereed"]</code></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Same as before but where Hawking was first author:<br><code>[wp_nasaads_query_importer author="^Hawking, S." property="refereed"]</code></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>List all articles by Ejnar Hertzsprung published in the <em>Astronomische Nachrichten</em>:<br><code>[wp_nasaads_query_importer author="Hertzsprung, E." bibstem="AN"]</code></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>List all articles by Ejnar Hertzsprung and Henry Norris Russell. Note that the author string is surrounded by single quotes while the author names are surrounded by double quotes in order to preserve their last and first names. Also the search by both authors is logically combined by AND due to the space between their names:<br><code>[wp_nasaads_query_importer author='"Hertzsprung, E." "Russell, H.N."']</code></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Load a user ADS library and filter the list of papers on a year range and exclude a certain journal:<br><code>[wp_nasaads_query_importer library="v_5XH6VZTfCiJdXwBp9mwA" bibstem="(-ApJL)" year="2000-2024"]</code></p>
+<!-- /wp:paragraph -->
