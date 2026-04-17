@@ -15,7 +15,7 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 // return HTML code to display an error message inside a box
 function wp_nasaads_query_importer_shortcode_error($msg) {
@@ -56,7 +56,7 @@ add_filter(
     'wp_nasaads_query_importer-format_author', 'wp_nasaads_query_importer_format_author', 1, 3);
 
 function wp_nasaads_query_importer_format_month($html, $value, $atts) {
-    return date('M', strtotime($value));
+    return gmdate('M', strtotime($value));
 }
 add_filter(
     'wp_nasaads_query_importer-format_month', 'wp_nasaads_query_importer_format_month', 1, 3);
@@ -143,7 +143,7 @@ function wp_nasaads_query_importer_shortcode_int_check(&$atts, $name, $mn, $mx, 
 
 // the shortcode
 function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = '') {
-    if (get_option('wp_nasaads_query_importer-valid_token') != 1) {
+    if (absint(get_option('wp_nasaads_query_importer-valid_token')) != 1) {
         return wp_nasaads_query_importer_shortcode_error('access token is not valid');
     }
 
@@ -156,7 +156,7 @@ function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = 
         'property' => null, 'library' => null,
         'max_rec' => 25, 'sort' => 'date+desc,bibcode+desc',
         'max_authors' => 3,
-        'notify_empty_list' => get_option('wp_nasaads_query_importer-empty_list')
+        'notify_empty_list' => rest_sanitize_boolean(get_option('wp_nasaads_query_importer-empty_list'))
                                ? 'true' : 'false',
         'show_num_rec' => get_option('wp_nasaads_query_importer-numrecords')
     ), array_change_key_case((array) $atts,  CASE_LOWER), $tag);
@@ -174,7 +174,7 @@ function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = 
     $shorttemp = true;
     if ($template === '') {
         $shorttemp = false;
-        $template = get_option('wp_nasaads_query_importer-template');
+        $template = wp_kses_post(get_option('wp_nasaads_query_importer-template'));
     }
 
     # check which of the defined placeholders (wp_nasaads_query_importer_record_mapping()
@@ -214,7 +214,7 @@ function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = 
     foreach ($response['docs'] as $record) {
         # Insert fetched record into an associative array. The keys
         # are the plugin's placeholder names and the values are the
-        # API value or values if an multiple fields are fetched for
+        # API value or values if multiple fields are fetched for
         # a certain placeholder.
         $data = array();
         for ($i=0; $i<sizeof($fetch); $i++) {            
@@ -237,10 +237,10 @@ function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = 
     }
     if (sizeof($html) > 0) {
         $html = ($shorttemp ? '<p>'
-                 : get_option('wp_nasaads_query_importer-template_start'))
+                 : wp_kses_post(get_option('wp_nasaads_query_importer-template_start')))
               . implode("</p>\n<p>", $html)
               . ($shorttemp ? '</p>'
-                 : get_option('wp_nasaads_query_importer-template_stop'));
+                 : wp_kses_post(get_option('wp_nasaads_query_importer-template_stop')));
     } else {
         $html = '';
         if ($atts['notify_empty_list'] === 'true')  {
@@ -255,7 +255,7 @@ function wp_nasaads_query_importer_shortcode($atts = [], $template = '', $tag = 
         $html .= sprintf('Query returned %d total number of records, %d are shown.</small><br />', $response['numFound'], sizeof($response['docs']));
     }
     # acknowledge ADS
-    if (get_option('wp_nasaads_query_importer-acknowledge')) {
+    if (wp_kses_post(get_option('wp_nasaads_query_importer-acknowledge'))) {
         $html .= 'Service offered by <a href="http://adsabs.harvard.edu/">The SAO/NASA Astrophysics Data System</a>.<br />';
     }
     $html .= '</div>';

@@ -15,10 +15,10 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 // initialize options with default values
 function wp_nasaads_query_importer_install() {
-    if (get_option('wp_nasaads_query_importer-token') == false) {
+    if (esc_html(get_option('wp_nasaads_query_importer-token')) == false) {
         add_option('wp_nasaads_query_importer-token', '');
         add_option('wp_nasaads_query_importer-template', "<li>\n<a href=\"%adsurl\">%title</a><br />\n%author<br />\n<small>%year %month, %bibstem[, %volume][, %page]</small>\n</li>");
         add_option('wp_nasaads_query_importer-template_start', '<ul>');
@@ -36,12 +36,12 @@ function wp_nasaads_query_importer_options_init() {
     register_setting(
         'nasa_ads_query', 'wp_nasaads_query_importer-token',
         'wp_nasaads_query_importer_validate_token');
-    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-template');
-    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-template_start');
-    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-template_stop');
-    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-numrecords');
-    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-empty_list');
-    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-acknowledge');
+    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-template', 'wp_kses_post');
+    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-template_start', 'wp_kses_post');
+    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-template_stop', 'wp_kses_post');
+    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-numrecords', 'absint');
+    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-empty_list','rest_sanitize_boolean');
+    register_setting('nasa_ads_query', 'wp_nasaads_query_importer-acknowledge', 'sanitize_text_field');
 
     foreach (array('token', 'numrecords', 'empty_list', 'template',
                    'template_start', 'template_stop', 'acknowledge')
@@ -70,7 +70,7 @@ function wp_nasaads_query_importer_options_display_token_field() {
     ?>
     <h2>API access token</h2>
     <p style="max-width: 460px">In order to query data from <a href="https://ui.adsabs.harvard.edu/">NASA/ADS</a> a so-called access token has to be passed for each request to the <a href="https://github.com/adsabs/adsabs-dev-api#access">API</a>. Thus, a token has to be entered here before the plugin can work properly. You can <a href="https://ui.adsabs.harvard.edu/user/settings/token">generate your personalized token</a> once you are <a href="https://ui.adsabs.harvard.edu/user/account/login">signed into NASA/ADS</a>.</p>
-    Token: <input name="wp_nasaads_query_importer-token" id="wp_nasaads_query_importer-token_field" type="text" value="<?php echo get_option('wp_nasaads_query_importer-token'); ?>" size="40"/>
+    Token: <input name="wp_nasaads_query_importer-token" id="wp_nasaads_query_importer-token_field" type="text" value="<?php echo wp_kses_post(get_option('wp_nasaads_query_importer-token')); ?>" size="40"/>
     <p style="max-width: 460px">Note that NASA/ADS recommends to "<b>keep your API key secret to protect it from abuse</b>" (according to the <a href="https://ui.adsabs.harvard.edu/user/settings/token">token generation page</a>). This plugin <u>does not</u> distribute your token any further! It will be used <u>only</u> for each query defined by the shortcodes in your blog!</p>
     <?php
 }
@@ -117,12 +117,12 @@ function wp_nasaads_query_importer_options_display_template_field() {
     ?>
     <h2>Content template</h2>
     <p style="max-width: 460px">Define a HTML template for a record in the list returned by the NASA/ADS API.<br />
-    <textarea id="wp_nasaads_query_importer-template_field" name="wp_nasaads_query_importer-template" style="width: 100%" rows="4"><?php echo get_option('wp_nasaads_query_importer-template'); ?></textarea></p>
+    <textarea id="wp_nasaads_query_importer-template_field" name="wp_nasaads_query_importer-template" style="width: 100%" rows="4"><?php echo wp_kses_post(get_option('wp_nasaads_query_importer-template')); ?></textarea></p>
     <p style="max-width: 460px">Optional HTML template before the list.<br />
-    <textarea id="wp_nasaads_query_importer-template_start_field" name="wp_nasaads_query_importer-template_start" style="width: 100%" rows="1"><?php echo get_option('wp_nasaads_query_importer-template_start'); ?></textarea></p>
+    <textarea id="wp_nasaads_query_importer-template_start_field" name="wp_nasaads_query_importer-template_start" style="width: 100%" rows="1"><?php echo wp_kses_post(get_option('wp_nasaads_query_importer-template_start')); ?></textarea></p>
     <p style="max-width: 460px">Optional HTML template after the list.<br />
-    <textarea id="wp_nasaads_query_importer-template_stop_field" name="wp_nasaads_query_importer-template_stop" style="width: 100%" rows="1"><?php echo get_option('wp_nasaads_query_importer-template_stop'); ?></textarea></p>
-    <p style="max-width: 460px">The following placeholders are defined and will be replaced by the corresponding field record:<br /><?php echo implode(', ', array_map(function($s) { return '%'.$s; }, array_keys(wp_nasaads_query_importer_record_mapping()))); ?></p>
+    <textarea id="wp_nasaads_query_importer-template_stop_field" name="wp_nasaads_query_importer-template_stop" style="width: 100%" rows="1"><?php echo wp_kses_post(get_option('wp_nasaads_query_importer-template_stop')); ?></textarea></p>
+    <p style="max-width: 460px">The following placeholders are defined and will be replaced by the corresponding field record:<br /><?php echo wp_kses_post(implode(', ', array_map(function($s) { return '%'.$s; }, array_keys(wp_nasaads_query_importer_record_mapping())))); ?></p>
     <?php
 }
 
@@ -132,9 +132,9 @@ function wp_nasaads_query_importer_options_display_numrecords_field() {
     ?>
     <h2>Show number of records</h2>
     <p style="max-width: 460px">Select in which case the total number of found records by the query and the number of actually listed records is added to the end of the record list. Can be overridden by the <i>show_num_rec</i> shortcode attribute.</p>
-    <input name="wp_nasaads_query_importer-numrecords" id="wp_nasaads_query_importer-numrecords_field" type="radio" value="0"<?php if (get_option('wp_nasaads_query_importer-numrecords') == 0) { echo " checked"; } ?> /> Never<br />
-    <input name="wp_nasaads_query_importer-numrecords" id="wp_nasaads_query_importer-numrecords_field" type="radio" value="1"<?php if (get_option('wp_nasaads_query_importer-numrecords') == 1) { echo " checked"; } ?> /> Always<br />
-    <input name="wp_nasaads_query_importer-numrecords" id="wp_nasaads_query_importer-numrecords_field" type="radio" value="2"<?php if (get_option('wp_nasaads_query_importer-numrecords') == 2) { echo " checked"; } ?> /> Depends, i.e., only if more records are found than listed
+    <input name="wp_nasaads_query_importer-numrecords" id="wp_nasaads_query_importer-numrecords_field" type="radio" value="0"<?php if (wp_kses_post(get_option('wp_nasaads_query_importer-numrecords')) == 0) { echo " checked"; } ?> /> Never<br />
+    <input name="wp_nasaads_query_importer-numrecords" id="wp_nasaads_query_importer-numrecords_field" type="radio" value="1"<?php if (wp_kses_post(get_option('wp_nasaads_query_importer-numrecords')) == 1) { echo " checked"; } ?> /> Always<br />
+    <input name="wp_nasaads_query_importer-numrecords" id="wp_nasaads_query_importer-numrecords_field" type="radio" value="2"<?php if (wp_kses_post(get_option('wp_nasaads_query_importer-numrecords')) == 2) { echo " checked"; } ?> /> Depends, i.e., only if more records are found than listed
     <?php
 }
 

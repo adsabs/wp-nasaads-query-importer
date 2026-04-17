@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Nasa/ADS Query Importer
- * Version:     1.0
+ * Version:     1.0.3
  * Plugin URI:  http://wordpress.org/extend/plugins/wp-nasaads-query-importer/
  * Description: Include queries to NASA/ADS in any Wordpress blog.
  * Author:      Matthias Bissinger and Giovanni Di Milia for the ADS
@@ -26,6 +26,8 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 function wp_nasaads_query_importer_not_validated() {
     ?>

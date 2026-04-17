@@ -15,7 +15,7 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 // define the API url
 function wp_nasaads_query_importer_url() {
@@ -107,7 +107,7 @@ function wp_nasaads_query_importer_build_query($atts, $fetch) {
 // query the API
 function wp_nasaads_query_importer_query($what, $token = null) {
     if (is_null($token)) {
-        $token = get_option('wp_nasaads_query_importer-token');
+        $token = esc_html(get_option('wp_nasaads_query_importer-token'));
     }
 
     // query API
@@ -142,7 +142,7 @@ function wp_nasaads_query_importer_query($what, $token = null) {
                     $response['error']['msg']);
             }
             return wp_nasaads_query_importer_throw(
-                print_r($response['error'], TRUE));
+                $response['error'], TRUE);
         }
         return wp_nasaads_query_importer_throw($response['error'], 1);
     }
