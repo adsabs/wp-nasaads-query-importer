@@ -140,6 +140,8 @@ In case you have discovered a bug please create an issue at [GitHub](https://git
 Sure, thanks! Simply fork the GIT repository from [GitHub](https://github.com/adsabs/wp-nasaads-query-importer) and create a pull request of your feature branch once your code works.
 
 == Changelog ==
+= 1.0.4 =
+* Maintenance release (Update code to match wordpress best practices)
 
 = 1.0.3 =
 * Maintenance release (sync with svn)
